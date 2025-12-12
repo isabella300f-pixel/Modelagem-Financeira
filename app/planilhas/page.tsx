@@ -42,7 +42,14 @@ export default function PlanilhasPage() {
           formData.append('manualData', JSON.stringify(manualData))
         }
 
-        if (formData.entries().next().done && !manualData) {
+        // Verificar se há pelo menos um arquivo ou dados manuais
+        let hasData = false
+        for (const entry of formData.entries()) {
+          hasData = true
+          break
+        }
+        
+        if (!hasData && !manualData) {
           throw new Error('Nenhum dado fornecido')
         }
 

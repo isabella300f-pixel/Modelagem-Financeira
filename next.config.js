@@ -3,12 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
   
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-  },
-  
+  // Configuração para API routes no App Router
   experimental: {
     serverActions: {
       bodySizeLimit: '10mb',

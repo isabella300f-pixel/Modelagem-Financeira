@@ -95,5 +95,6 @@ coverage/
 src/web/
 api/
 
-# Documentação de desenvolvimento
-docs/GIT_COMMIT.md
+# Arquivos de backup
+*.backup
+app/api/**/*.py.backup
