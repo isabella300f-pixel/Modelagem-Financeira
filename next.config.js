@@ -1,15 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Configurar para usar src/web como base
-  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  // Permitir upload de arquivos grandes
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  
   api: {
     bodyParser: {
       sizeLimit: '10mb',
     },
   },
+  
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
+  },
 }
 
 module.exports = nextConfig
-

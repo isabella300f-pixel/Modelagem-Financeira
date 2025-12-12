@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# Modelagem-Financeira
-=======
-# Sistema de Análise Financeira - DRE com Fallback Histórico
-=======
 # 300F - Sistema de Gestão de Performance para Franqueados
->>>>>>> cfa605e (feat: atualiza layout e adiciona novas páginas e docs)
 
 Sistema web completo para aceleradora de franquias, oferecendo gestão integrada de franqueados com análise financeira, documentos, treinamentos, comunicação e operações.
 
@@ -190,4 +183,3 @@ Este é um projeto privado. Para questões ou melhorias, entre em contato com a 
 ## 📞 Suporte
 
 Para problemas ou dúvidas, consulte a documentação em `docs/` ou entre em contato com o time de desenvolvimento.
->>>>>>> 20c4b83 (chore: initial commit)

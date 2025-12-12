@@ -20,7 +20,8 @@ export default function PlanilhasPage() {
     try {
       let response
 
-      if (manualData) {
+      // Se só tem dados manuais (sem arquivo), usar JSON
+      if (manualData && !excelFile && !historicalFile) {
         response = await fetch('/api/process', {
           method: 'POST',
           headers: {
@@ -28,7 +29,8 @@ export default function PlanilhasPage() {
           },
           body: JSON.stringify({ manualData }),
         })
-      } else if (excelFile || manualData) {
+      } else {
+        // Se tem arquivo ou ambos, usar FormData
         const formData = new FormData()
         if (excelFile) {
           formData.append('excel', excelFile)
@@ -40,17 +42,32 @@ export default function PlanilhasPage() {
           formData.append('manualData', JSON.stringify(manualData))
         }
 
+        if (formData.entries().next().done && !manualData) {
+          throw new Error('Nenhum dado fornecido')
+        }
+
         response = await fetch('/api/process', {
           method: 'POST',
           body: formData,
         })
-      } else {
-        throw new Error('Nenhum dado fornecido')
       }
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || 'Erro ao processar dados')
+        let errorMessage = 'Erro ao processar dados'
+        try {
+          const errorData = await response.json()
+          errorMessage = errorData.error || errorMessage
+        } catch (e) {
+          errorMessage = `Erro HTTP ${response.status}: ${response.statusText}`
+        }
+        throw new Error(errorMessage)
+      }
+
+      const contentType = response.headers.get('content-type')
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text()
+        console.error('Resposta não é JSON:', text.substring(0, 200))
+        throw new Error('Resposta inválida do servidor')
       }
 
       const result = await response.json()
