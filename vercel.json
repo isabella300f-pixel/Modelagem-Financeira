@@ -1,13 +1,4 @@
 {
   "version": 2,
-  "framework": "nextjs",
-  "functions": {
-    "api/**/*.py": {
-      "runtime": "@vercel/python"
-    },
-    "app/api/**/*.ts": {
-      "runtime": "nodejs18.x",
-      "maxDuration": 60
-    }
-  }
+  "framework": "nextjs"
 }
