@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Logo from './Logo'
@@ -25,6 +26,35 @@ const navItems: NavItem[] = [
 
 export default function Navigation() {
   const pathname = usePathname()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Evitar problemas de hidratação - renderizar apenas após montar
+  if (!mounted) {
+    return (
+      <div className="w-64 bg-[#1a2332] border-r border-[#2d3a4f] min-h-screen flex flex-col">
+        <div className="p-6 border-b border-[#2d3a4f]">
+          <Logo />
+        </div>
+        <nav className="flex-1 p-4 space-y-2">
+          {navItems.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center justify-between px-4 py-3 rounded-lg text-gray-300"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-lg">{item.icon}</span>
+                <span className="font-medium">{item.label}</span>
+              </div>
+            </div>
+          ))}
+        </nav>
+      </div>
+    )
+  }
 
   return (
     <div className="w-64 bg-[#1a2332] border-r border-[#2d3a4f] min-h-screen flex flex-col">
