@@ -16,7 +16,7 @@ export default function DREView({ data }: DREViewProps) {
     : data?.dre_anual
 
   if (!dreData || dreData.length === 0) {
-    return <div className="card">Nenhum dado DRE disponível</div>
+    return <div className="card text-gray-400">Nenhum dado DRE disponível</div>
   }
 
   const formatCurrency = (value: any) => {
@@ -41,39 +41,39 @@ export default function DREView({ data }: DREViewProps) {
   return (
     <div className="card">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-bold">Demonstração do Resultado do Exercício</h3>
+        <h3 className="text-xl font-bold text-white">Demonstração do Resultado do Exercício</h3>
         <select
           value={period}
           onChange={(e) => setPeriod(e.target.value as any)}
-          className="px-4 py-2 border border-gray-300 rounded-lg"
+          className="px-4 py-2 rounded-lg border border-[#2d3a4f] bg-[#1a2332] text-white"
         >
-          <option value="mensal">Mensal</option>
-          <option value="trimestral">Trimestral</option>
-          <option value="anual">Anual</option>
+          <option value="mensal" className="bg-[#1a2332]">Mensal</option>
+          <option value="trimestral" className="bg-[#1a2332]">Trimestral</option>
+          <option value="anual" className="bg-[#1a2332]">Anual</option>
         </select>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+        <table className="min-w-full">
+          <thead>
+            <tr className="bg-[#2d3a4f] border-b border-[#3d4f6b]">
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase">
                 Linha DRE
               </th>
               {periods.map((p: string, idx: number) => (
                 <th
                   key={idx}
-                  className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase"
+                  className="px-4 py-3 text-right text-xs font-medium text-gray-300 uppercase"
                 >
                   {p}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="divide-y divide-[#2d3a4f]">
             {dreLines.map((line: string, lineIdx: number) => (
-              <tr key={lineIdx} className={lineIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                <td className="px-4 py-3 text-sm font-medium text-gray-900">{line}</td>
+              <tr key={lineIdx} className={lineIdx % 2 === 0 ? 'bg-[#1a2332]' : 'bg-[#1e2a3a]'}>
+                <td className="px-4 py-3 text-sm font-medium text-white">{line}</td>
                 {dreData.map((row: any, periodIdx: number) => {
                   // Buscar valor com diferentes variações de nome
                   const value = row[line] ?? 
@@ -82,7 +82,7 @@ export default function DREView({ data }: DREViewProps) {
                                row[line.replace(/\s+/g, '_').toLowerCase().replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u')] ??
                                0
                   return (
-                    <td key={periodIdx} className="px-4 py-3 text-sm text-right text-gray-700">
+                    <td key={periodIdx} className="px-4 py-3 text-sm text-right text-gray-300">
                       {formatCurrency(value)}
                     </td>
                   )
@@ -95,4 +95,3 @@ export default function DREView({ data }: DREViewProps) {
     </div>
   )
 }
-

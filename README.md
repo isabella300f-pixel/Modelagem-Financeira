@@ -1,12 +1,17 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Modelagem-Financeira
 =======
 # Sistema de Análise Financeira - DRE com Fallback Histórico
+=======
+# 300F - Sistema de Gestão de Performance para Franqueados
+>>>>>>> cfa605e (feat: atualiza layout e adiciona novas páginas e docs)
 
-Sistema web completo para análise financeira que gera DRE (Demonstrativo de Resultado do Exercício) com lógica inteligente de fallback histórico, processando dados de planilhas Excel e permitindo entrada manual de dados.
+Sistema web completo para aceleradora de franquias, oferecendo gestão integrada de franqueados com análise financeira, documentos, treinamentos, comunicação e operações.
 
-## 🚀 Características
+## 🚀 Características Principais
 
+### Análise Financeira
 - **Extração de Dados**: Processa planilhas Excel complexas automaticamente
 - **Geração de DRE**: DRE mensal, trimestral e anual
 - **Cálculo de KPIs**: Margem Bruta, Margem EBITDA, Margem Líquida, ROI
@@ -14,6 +19,33 @@ Sistema web completo para análise financeira que gera DRE (Demonstrativo de Res
 - **Interface Web Moderna**: Dashboard interativo com gráficos
 - **Entrada Manual**: Permite adicionar dados manualmente quando não há arquivo
 - **Exportação**: Exporta resultados em Excel/CSV
+
+### Gestão de Franqueados
+- **Perfil Completo**: Dados cadastrais, informações da unidade, indicadores
+- **Documentos**: Repositório com controle de versões e alertas de vencimento
+- **Treinamentos**: Trilhas de aprendizado com progresso e materiais
+- **Comunicação**: Chat, chamados, agendamentos e comunicados
+- **Gestão Operacional**: Checklists, evidências e relatórios
+- **Painel Gerencial**: Visão geral com ranking e comparativos
+
+## 📁 Estrutura do Projeto
+
+```
+projeto/
+├── app/                    # Next.js App Router
+│   ├── api/               # API Routes
+│   ├── comunicacao/       # Módulo de comunicação
+│   ├── documentos/        # Gestão de documentos
+│   ├── operacional/       # Gestão operacional
+│   ├── painel-gerencial/  # Painel administrativo
+│   ├── perfil/            # Perfil do franqueado
+│   ├── planilhas/         # Análise financeira
+│   └── treinamentos/      # Sistema de treinamentos
+├── components/            # Componentes React
+├── src/core/             # Módulos Python (análise financeira)
+├── scripts/              # Scripts Python
+└── docs/                 # Documentação
+```
 
 ## 📋 Pré-requisitos
 

@@ -6,11 +6,41 @@ interface MetricsProps {
 
 export default function Metrics({ data }: MetricsProps) {
   const dreMensal = data?.dre_mensal
-  if (!dreMensal || dreMensal.length === 0) return null
+  if (!dreMensal || dreMensal.length === 0) {
+    return (
+      <div className="card">
+        <p className="text-gray-400">Nenhum dado disponível. Processe uma análise primeiro.</p>
+      </div>
+    )
+  }
 
-  const ultimoMes = dreMensal[dreMensal.length - 1]
+  // Pegar o último mês com dados válidos (não zero)
+  let ultimoMes = null
+  for (let i = dreMensal.length - 1; i >= 0; i--) {
+    const mes = dreMensal[i]
+    if (mes && (mes.receita_liquida || mes.receita_líquida || mes['Receita Líquida'])) {
+      ultimoMes = mes
+      break
+    }
+  }
+  if (!ultimoMes) {
+    ultimoMes = dreMensal[dreMensal.length - 1]
+  }
+
   const kpis = data?.kpis
-  const ultimoKPI = kpis && kpis.length > 0 ? kpis[kpis.length - 1] : null
+  let ultimoKPI = null
+  if (kpis && kpis.length > 0) {
+    for (let i = kpis.length - 1; i >= 0; i--) {
+      const kpi = kpis[i]
+      if (kpi && (kpi.margem_liquida || kpi.margem_líquida || kpi['Margem Líquida'])) {
+        ultimoKPI = kpi
+        break
+      }
+    }
+    if (!ultimoKPI) {
+      ultimoKPI = kpis[kpis.length - 1]
+    }
+  }
 
   // Normalizar busca de valores (tentar diferentes variações de nome)
   const getValue = (obj: any, ...keys: string[]) => {
@@ -71,10 +101,10 @@ export default function Metrics({ data }: MetricsProps) {
   }
 
   const colorClasses = {
-    blue: 'bg-blue-50 border-blue-200 text-blue-800',
-    green: 'bg-green-50 border-green-200 text-green-800',
-    red: 'bg-red-50 border-red-200 text-red-800',
-    purple: 'bg-purple-50 border-purple-200 text-purple-800',
+    blue: 'border-blue-400/50 bg-blue-950/20 text-blue-200',
+    green: 'border-green-400/50 bg-green-950/20 text-green-200',
+    red: 'border-red-400/50 bg-red-950/20 text-red-200',
+    purple: 'border-purple-400/50 bg-purple-950/20 text-purple-200',
   }
 
   return (
@@ -84,7 +114,7 @@ export default function Metrics({ data }: MetricsProps) {
           key={idx}
           className={`card border-2 ${colorClasses[metric.color as keyof typeof colorClasses]}`}
         >
-          <h3 className="text-sm font-medium mb-2">{metric.label}</h3>
+          <h3 className="text-sm font-medium mb-2 text-gray-300">{metric.label}</h3>
           <p className="text-2xl font-bold">
             {formatValue(metric.value, metric.format)}
           </p>
@@ -93,4 +123,3 @@ export default function Metrics({ data }: MetricsProps) {
     </div>
   )
 }
-

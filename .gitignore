@@ -94,3 +94,6 @@ coverage/
 # Pastas legadas/duplicadas (a estrutura principal está na raiz)
 src/web/
 api/
+
+# Documentação de desenvolvimento
+docs/GIT_COMMIT.md

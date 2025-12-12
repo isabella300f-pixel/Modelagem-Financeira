@@ -144,20 +144,20 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
 
   return (
     <div className="card">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+      <h2 className="text-2xl font-bold text-white mb-6">
         Entrada Manual de Dados
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Informações Básicas */}
         <div>
-          <h3 className="text-xl font-semibold text-gray-700 mb-4">
+          <h3 className="text-xl font-semibold text-gray-300 mb-4">
             Informações do Negócio
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Nome do Cliente */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Nome do Cliente
               </label>
               <input
@@ -165,13 +165,13 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
                 placeholder="Ex: João Silva"
                 value={infoBasica.nome_cliente}
                 onChange={(e) => updateInfoBasica('nome_cliente', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400"
+                className="w-full px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white placeholder-gray-400"
               />
             </div>
 
             {/* Nome do Estabelecimento */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Nome do Estabelecimento
               </label>
               <input
@@ -179,19 +179,19 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
                 placeholder="Ex: Bar do João"
                 value={infoBasica.nome_estabelecimento}
                 onChange={(e) => updateInfoBasica('nome_estabelecimento', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400"
+                className="w-full px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white placeholder-gray-400"
               />
             </div>
 
             {/* Tipo de Negócio */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Tipo de negócio
               </label>
               <select
                 value={infoBasica.tipo_negocio}
                 onChange={(e) => updateInfoBasica('tipo_negocio', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900"
+                className="w-full px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white"
               >
                 <option value="">Selecione...</option>
                 {TIPOS_NEGOCIO.map(tipo => (
@@ -202,13 +202,13 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
 
             {/* Estado */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Estado
               </label>
               <select
                 value={infoBasica.estado}
                 onChange={(e) => updateInfoBasica('estado', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900"
+                className="w-full px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white"
               >
                 <option value="">Selecione...</option>
                 {ESTADOS.map(estado => (
@@ -219,14 +219,14 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
 
             {/* Cidade */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Cidade
               </label>
               <select
                 value={infoBasica.cidade}
                 onChange={(e) => updateInfoBasica('cidade', e.target.value)}
                 disabled={!infoBasica.estado}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white disabled:bg-[#1a1f2a] disabled:cursor-not-allowed"
               >
                 <option value="">Selecione...</option>
                 {cidadesDisponiveis.map(cidade => (
@@ -237,7 +237,7 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
 
             {/* Capital Investido */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Capital investido (R$)
               </label>
               <input
@@ -246,13 +246,13 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
                 placeholder="Ex: 8000"
                 value={infoBasica.capital_investido}
                 onChange={(e) => updateInfoBasica('capital_investido', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400"
+                className="w-full px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white placeholder-gray-400"
               />
             </div>
 
             {/* Ticket Médio */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Ticket médio por cliente (R$)
               </label>
               <input
@@ -261,13 +261,13 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
                 placeholder="Ex: 120"
                 value={infoBasica.ticket_medio}
                 onChange={(e) => updateInfoBasica('ticket_medio', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400"
+                className="w-full px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white placeholder-gray-400"
               />
             </div>
 
             {/* Capacidade */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Capacidade / clientes por mês (opcional)
               </label>
               <input
@@ -276,7 +276,7 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
                 placeholder="Ex: 1200"
                 value={infoBasica.capacidade}
                 onChange={(e) => updateInfoBasica('capacidade', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400"
+                className="w-full px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white placeholder-gray-400"
               />
             </div>
           </div>
@@ -289,11 +289,11 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
         {/* Receitas Adicionais */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-semibold text-gray-700">Receitas Adicionais</h3>
+            <h3 className="text-xl font-semibold text-gray-300">Receitas Adicionais</h3>
             <button
               type="button"
               onClick={addReceita}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 text-sm"
+              className="px-4 py-2 bg-[#1e3a5f] text-white border border-[#3d6ba0] rounded-lg hover:bg-gray-300 text-sm"
             >
               + Receita
             </button>
@@ -301,12 +301,12 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
 
           <div className="space-y-3">
             {formData.receitas.map((receita, index) => (
-              <div key={index} className="flex gap-3 items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+              <div key={index} className="flex gap-3 items-center p-3 bg-[#1e2a3a] rounded-lg border border-[#2d3a4f]">
                 <input
                   type="month"
                   value={receita.mes}
                   onChange={(e) => updateReceita(index, 'mes', e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900"
+                  className="px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white"
                 />
                 <input
                   type="number"
@@ -314,7 +314,7 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
                   placeholder="Valor (R$)"
                   value={receita.valor || ''}
                   onChange={(e) => updateReceita(index, 'valor', e.target.value)}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400"
+                  className="flex-1 px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white placeholder-gray-400"
                 />
                 <button
                   type="button"
@@ -332,11 +332,11 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
         {/* Despesas Adicionais */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-semibold text-gray-700">Despesas Adicionais</h3>
+            <h3 className="text-xl font-semibold text-gray-300">Despesas Adicionais</h3>
             <button
               type="button"
               onClick={addDespesa}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 text-sm"
+              className="px-4 py-2 bg-[#1e3a5f] text-white border border-[#3d6ba0] rounded-lg hover:bg-gray-300 text-sm"
             >
               + Despesa
             </button>
@@ -344,17 +344,17 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
 
           <div className="space-y-3">
             {formData.despesas.map((despesa, index) => (
-              <div key={index} className="grid grid-cols-1 md:grid-cols-5 gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+              <div key={index} className="grid grid-cols-1 md:grid-cols-5 gap-3 p-3 bg-[#1e2a3a] rounded-lg border border-[#2d3a4f]">
                 <input
                   type="month"
                   value={despesa.mes}
                   onChange={(e) => updateDespesa(index, 'mes', e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900"
+                  className="px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white"
                 />
                 <select
                   value={despesa.categoria}
                   onChange={(e) => updateDespesa(index, 'categoria', e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900"
+                  className="px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white"
                 >
                   {categoriasDespesa.map(cat => (
                     <option key={cat} value={cat}>{cat}</option>
@@ -365,7 +365,7 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
                   placeholder="Descrição (opcional)"
                   value={despesa.descricao || ''}
                   onChange={(e) => updateDespesa(index, 'descricao', e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400"
+                  className="px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white placeholder-gray-400"
                 />
                 <input
                   type="number"
@@ -373,7 +373,7 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
                   placeholder="Valor (R$)"
                   value={despesa.valor || ''}
                   onChange={(e) => updateDespesa(index, 'valor', e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400"
+                  className="px-3 py-2 border border-[#2d3a4f] rounded-lg bg-[#1a2332] text-white placeholder-gray-400"
                 />
                 <button
                   type="button"

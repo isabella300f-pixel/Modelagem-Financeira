@@ -93,8 +93,8 @@ export default function ExportButtons({ data }: ExportButtonsProps) {
 
   return (
     <div className="card">
-      <h3 className="text-xl font-bold mb-4">Exportar Resultados</h3>
-      <p className="text-gray-600 mb-6">
+      <h3 className="text-xl font-bold mb-4 text-white">Exportar Resultados</h3>
+      <p className="text-gray-300 mb-6">
         Baixe os resultados da análise em diferentes formatos
       </p>
 
@@ -115,9 +115,9 @@ export default function ExportButtons({ data }: ExportButtonsProps) {
         </button>
       </div>
 
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-        <h4 className="font-semibold text-blue-900 mb-2">Formato dos Exports:</h4>
-        <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
+      <div className="mt-6 p-4 bg-[#1e3a5f]/20 rounded-lg border border-[#3d6ba0]/30">
+        <h4 className="font-semibold text-blue-200 mb-2">Formato dos Exports:</h4>
+        <ul className="text-sm text-gray-300 space-y-1 list-disc list-inside">
           <li><strong>Excel:</strong> Arquivo .xlsx com múltiplas abas (DRE, KPIs, Flags)</li>
           <li><strong>JSON:</strong> Dados completos em formato JSON para integração</li>
           <li><strong>Relatório:</strong> Resumo executivo em texto (.txt)</li>
@@ -126,4 +126,3 @@ export default function ExportButtons({ data }: ExportButtonsProps) {
     </div>
   )
 }
-

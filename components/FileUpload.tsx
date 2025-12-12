@@ -154,14 +154,14 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
 
   return (
     <div className="card">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+      <h2 className="text-2xl font-bold text-white mb-6">
         Upload de Arquivos
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Excel File */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
             Planilha Excel (Opcional)
           </label>
           <input
@@ -169,11 +169,11 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
             type="file"
             accept=".xlsx,.xls"
             onChange={handleExcelChange}
-            className="input-file text-gray-700"
+            className="input-file text-white"
             disabled={loading}
           />
           {excelFile && (
-            <p className="mt-2 text-sm text-green-600">
+            <p className="mt-2 text-sm text-green-400">
               ✓ {excelFile.name}
             </p>
           )}
@@ -181,7 +181,7 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
 
         {/* Historical File */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
             Base Histórica CSV (Opcional)
           </label>
           <input
@@ -189,42 +189,42 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
             type="file"
             accept=".csv"
             onChange={handleHistoricalChange}
-            className="input-file text-gray-700"
+            className="input-file text-white"
             disabled={loading}
           />
           {historicalFile && (
-            <p className="mt-2 text-sm text-green-600">
+            <p className="mt-2 text-sm text-green-400">
               ✓ {historicalFile.name}
             </p>
           )}
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-gray-400">
             Use base histórica para melhorar a precisão quando dados atuais forem insuficientes
           </p>
         </div>
 
         {/* Adicionar Dados Manuais */}
-        <div className="border-t pt-4">
+        <div className="border-t border-[#2d3a4f] pt-4">
           <button
             type="button"
             onClick={() => setShowManual(!showManual)}
-            className="w-full py-2 px-4 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 font-medium"
+            className="w-full py-2 px-4 bg-[#1e3a5f] text-white rounded-lg hover:bg-[#2d4f7a] font-medium border border-[#3d6ba0]"
           >
             {showManual ? '▼ Ocultar' : '▶ Adicionar Dados Manuais'} Dados Adicionais
           </button>
 
-          {showManual && (
-            <div className="mt-4 space-y-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <p className="text-sm text-blue-800 font-medium">
+            {showManual && (
+            <div className="mt-4 space-y-6 p-4 bg-[#1e3a5f]/20 rounded-lg border border-[#3d6ba0]/30">
+              <p className="text-sm text-blue-200 font-medium">
                 💡 Adicione receitas ou despesas manuais que serão combinadas com os dados do arquivo Excel
               </p>
 
               {/* Informações Básicas */}
               <div>
-                <h4 className="font-semibold text-gray-700 mb-3">Informações do Negócio</h4>
+                <h4 className="font-semibold text-white mb-3">Informações do Negócio</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                   {/* Nome do Cliente */}
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
                       Nome do Cliente
                     </label>
                     <input
@@ -232,13 +232,13 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
                       placeholder="Ex: João Silva"
                       value={infoBasica.nome_cliente}
                       onChange={(e) => updateInfoBasica('nome_cliente', e.target.value)}
-                      className="w-full px-2 py-1 text-sm border border-gray-300 rounded bg-white text-gray-900 placeholder-gray-400"
+                      className="w-full px-2 py-1 text-sm border border-[#2d3a4f] rounded bg-[#1a2332] text-white placeholder-gray-400"
                     />
                   </div>
 
                   {/* Nome do Estabelecimento */}
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
                       Nome do Estabelecimento
                     </label>
                     <input
@@ -246,19 +246,19 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
                       placeholder="Ex: Bar do João"
                       value={infoBasica.nome_estabelecimento}
                       onChange={(e) => updateInfoBasica('nome_estabelecimento', e.target.value)}
-                      className="w-full px-2 py-1 text-sm border border-gray-300 rounded bg-white text-gray-900 placeholder-gray-400"
+                      className="w-full px-2 py-1 text-sm border border-[#2d3a4f] rounded bg-[#1a2332] text-white placeholder-gray-400"
                     />
                   </div>
 
                   {/* Tipo de Negócio */}
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
                       Tipo de negócio
                     </label>
                     <select
                       value={infoBasica.tipo_negocio}
                       onChange={(e) => updateInfoBasica('tipo_negocio', e.target.value)}
-                      className="w-full px-2 py-1 text-sm border border-gray-300 rounded bg-white text-gray-900"
+                      className="w-full px-2 py-1 text-sm border border-[#2d3a4f] rounded bg-[#1a2332] text-white"
                     >
                       <option value="">Selecione...</option>
                       {TIPOS_NEGOCIO.map(tipo => (
@@ -269,13 +269,13 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
 
                   {/* Estado */}
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
                       Estado
                     </label>
                     <select
                       value={infoBasica.estado}
                       onChange={(e) => updateInfoBasica('estado', e.target.value)}
-                      className="w-full px-2 py-1 text-sm border border-gray-300 rounded bg-white text-gray-900"
+                      className="w-full px-2 py-1 text-sm border border-[#2d3a4f] rounded bg-[#1a2332] text-white"
                     >
                       <option value="">Selecione...</option>
                       {ESTADOS.map(estado => (
@@ -286,14 +286,14 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
 
                   {/* Cidade */}
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
                       Cidade
                     </label>
                     <select
                       value={infoBasica.cidade}
                       onChange={(e) => updateInfoBasica('cidade', e.target.value)}
                       disabled={!infoBasica.estado}
-                      className="w-full px-2 py-1 text-sm border border-gray-300 rounded bg-white text-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                      className="w-full px-2 py-1 text-sm border border-[#2d3a4f] rounded bg-[#1a2332] text-white disabled:bg-gray-100 disabled:cursor-not-allowed"
                     >
                       <option value="">Selecione...</option>
                       {cidadesDisponiveis.map(cidade => (
@@ -304,7 +304,7 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
 
                   {/* Capital Investido */}
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
                       Capital investido (R$)
                     </label>
                     <input
@@ -313,13 +313,13 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
                       placeholder="Ex: 8000"
                       value={infoBasica.capital_investido}
                       onChange={(e) => updateInfoBasica('capital_investido', e.target.value)}
-                      className="w-full px-2 py-1 text-sm border border-gray-300 rounded bg-white text-gray-900 placeholder-gray-400"
+                      className="w-full px-2 py-1 text-sm border border-[#2d3a4f] rounded bg-[#1a2332] text-white placeholder-gray-400"
                     />
                   </div>
 
                   {/* Ticket Médio */}
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
                       Ticket médio por cliente (R$)
                     </label>
                     <input
@@ -328,13 +328,13 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
                       placeholder="Ex: 120"
                       value={infoBasica.ticket_medio}
                       onChange={(e) => updateInfoBasica('ticket_medio', e.target.value)}
-                      className="w-full px-2 py-1 text-sm border border-gray-300 rounded bg-white text-gray-900 placeholder-gray-400"
+                      className="w-full px-2 py-1 text-sm border border-[#2d3a4f] rounded bg-[#1a2332] text-white placeholder-gray-400"
                     />
                   </div>
 
                   {/* Capacidade */}
                   <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
                       Capacidade / clientes por mês (opcional)
                     </label>
                     <input
@@ -343,12 +343,12 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
                       placeholder="Ex: 1200"
                       value={infoBasica.capacidade}
                       onChange={(e) => updateInfoBasica('capacidade', e.target.value)}
-                      className="w-full px-2 py-1 text-sm border border-gray-300 rounded bg-white text-gray-900 placeholder-gray-400"
+                      className="w-full px-2 py-1 text-sm border border-[#2d3a4f] rounded bg-[#1a2332] text-white placeholder-gray-400"
                     />
                   </div>
                 </div>
                 
-                <p className="mt-2 text-xs text-gray-600">
+                <p className="mt-2 text-xs text-gray-300">
                   💡 <strong>Dica:</strong> Campos não preenchidos serão buscados automaticamente da planilha base.
                 </p>
               </div>
@@ -356,7 +356,7 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
               {/* Receitas Manuais */}
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <h4 className="font-semibold text-gray-700">Receitas Adicionais</h4>
+                  <h4 className="font-semibold text-gray-300">Receitas Adicionais</h4>
                   <button type="button" onClick={addManualReceita} className="text-sm btn-secondary">
                     + Receita
                   </button>
@@ -393,7 +393,7 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
               {/* Despesas Manuais */}
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <h4 className="font-semibold text-gray-700">Despesas Adicionais</h4>
+                  <h4 className="font-semibold text-gray-300">Despesas Adicionais</h4>
                   <button type="button" onClick={addManualDespesa} className="text-sm btn-secondary">
                     + Despesa
                   </button>
@@ -449,22 +449,22 @@ export default function FileUpload({ onProcess, loading }: FileUploadProps) {
         </button>
         
         {!excelFile && !showManual && (
-          <p className="mt-4 text-sm text-blue-600 text-center">
+          <p className="mt-4 text-sm text-blue-300 text-center">
             💡 Selecione um arquivo Excel ou adicione dados manuais para processar.
           </p>
         )}
         
         {showManual && !excelFile && !manualReceitas.some(r => r.valor > 0) && !manualDespesas.some(d => d.valor > 0) && !Object.values(infoBasica).some(v => v && v.toString().trim() !== '') && (
-          <p className="mt-4 text-sm text-blue-600 text-center">
+          <p className="mt-4 text-sm text-blue-300 text-center">
             💡 Preencha pelo menos um campo de informações ou adicione receitas/despesas manuais.
           </p>
         )}
       </form>
 
       {/* Info */}
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-        <h3 className="font-semibold text-blue-900 mb-2">ℹ️ Como usar:</h3>
-        <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
+      <div className="mt-6 p-4 bg-[#1e3a5f]/20 rounded-lg border border-[#3d6ba0]/30">
+        <h3 className="font-semibold text-blue-200 mb-2">ℹ️ Como usar:</h3>
+        <ul className="text-sm text-gray-300 space-y-1 list-disc list-inside">
           <li>Faça upload da planilha Excel com dados financeiros</li>
           <li>(Opcional) Adicione base histórica em CSV para fallback</li>
           <li>Clique em "Processar Dados"</li>
