@@ -136,7 +136,7 @@ export default function PlanilhasPage() {
         {!data && (
           <div className="max-w-4xl mx-auto">
             {inputMode === 'file' ? (
-              <FileUpload onProcess={(file, hist, manual) => handleProcess(file, hist, manual)} loading={loading} />
+              <FileUpload onProcess={(file, hist, manual) => handleProcess(file ?? undefined, hist, manual)} loading={loading} />
             ) : (
               <ManualInput onProcess={(data) => handleProcess(undefined, undefined, data)} loading={loading} />
             )}
