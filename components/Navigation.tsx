@@ -32,30 +32,8 @@ export default function Navigation() {
     setMounted(true)
   }, [])
 
-  // Evitar problemas de hidratação - renderizar apenas após montar
-  if (!mounted) {
-    return (
-      <div className="w-64 bg-[#1a2332] border-r border-[#2d3a4f] min-h-screen flex flex-col">
-        <div className="p-6 border-b border-[#2d3a4f]">
-          <Logo />
-        </div>
-        <nav className="flex-1 p-4 space-y-2">
-          {navItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center justify-between px-4 py-3 rounded-lg text-gray-300"
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-lg">{item.icon}</span>
-                <span className="font-medium">{item.label}</span>
-              </div>
-            </div>
-          ))}
-        </nav>
-      </div>
-    )
-  }
-
+  // Renderizar sempre a mesma estrutura HTML, apenas mudar a classe CSS após mount
+  // Isso evita problemas de hidratação
   return (
     <div className="w-64 bg-[#1a2332] border-r border-[#2d3a4f] min-h-screen flex flex-col">
       {/* Logo */}
@@ -66,7 +44,8 @@ export default function Navigation() {
       {/* Navigation Items */}
       <nav className="flex-1 p-4 space-y-2">
         {navItems.map((item) => {
-          const isActive = pathname === item.path
+          // Só verificar pathname após o mount para evitar diferença de hidratação
+          const isActive = mounted && pathname === item.path
           return (
             <Link
               key={item.id}
