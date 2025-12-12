@@ -1,0 +1,96 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.Python
+
+# Next.js
+.next/
+out/
+build/
+dist/
+.vercel
+
+# Environment
+.env
+.env.local
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+tmp/
+*.cache
+
+# Test files e resultados gerados
+teste_resultados.xlsx
+resultados_analise_financeira.xlsx
+relatorio_analise.txt
+
+# Dados sensíveis (manter apenas exemplos)
+data/resultados/*.xlsx
+data/resultados/*.txt
+data/resultados/*.csv
+!data/exemplos/
+
+# Scripts temporários e de teste
+organizar_pasta.ps1
+scripts/teste_*.py
+scripts/testar_*.py
+scripts/analisar_*.py
+
+# Python
+*.egg-info/
+dist/
+build/
+*.egg
+venv/
+env/
+ENV/
+.pytest_cache/
+.coverage
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Arquivos Excel grandes (não versionar - apenas exemplos)
+*.xlsx
+*.xls
+!data/exemplos/*.csv
+
+# Pastas legadas/duplicadas (a estrutura principal está na raiz)
+src/web/
+api/

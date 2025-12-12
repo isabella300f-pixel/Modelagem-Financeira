@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "functions": {
+    "scripts/**/*.py": {
+      "runtime": "python3.9",
+      "maxDuration": 60
+    },
+    "app/api/**/*.py": {
+      "runtime": "python3.9",
+      "maxDuration": 60
+    }
+  }
+}
+

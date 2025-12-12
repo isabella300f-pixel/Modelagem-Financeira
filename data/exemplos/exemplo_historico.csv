@@ -1,0 +1,38 @@
+data,categoria,valor,tipo,descricao
+2020-01-01,Receita,15000.00,entrada,Limpeza Residencial
+2020-01-01,Pessoal,5500.00,saida,Salários
+2020-01-01,Utilidades,200.00,saida,Energia Elétrica
+2020-02-01,Receita,18000.00,entrada,Limpeza Residencial
+2020-02-01,Pessoal,5500.00,saida,Salários
+2020-02-01,Utilidades,220.00,saida,Energia Elétrica
+2020-03-01,Receita,20000.00,entrada,Limpeza Residencial
+2020-03-01,Pessoal,5500.00,saida,Salários
+2020-03-01,Utilidades,180.00,saida,Energia Elétrica
+2020-04-01,Receita,22000.00,entrada,Limpeza Residencial
+2020-04-01,Pessoal,5500.00,saida,Salários
+2020-04-01,Utilidades,200.00,saida,Energia Elétrica
+2020-05-01,Receita,25000.00,entrada,Limpeza Residencial
+2020-05-01,Pessoal,5500.00,saida,Salários
+2020-05-01,Utilidades,210.00,saida,Energia Elétrica
+2020-06-01,Receita,28000.00,entrada,Limpeza Residencial
+2020-06-01,Pessoal,5500.00,saida,Salários
+2020-06-01,Utilidades,230.00,saida,Energia Elétrica
+2020-07-01,Receita,30000.00,entrada,Limpeza Residencial
+2020-07-01,Pessoal,5500.00,saida,Salários
+2020-07-01,Utilidades,250.00,saida,Energia Elétrica
+2020-08-01,Receita,32000.00,entrada,Limpeza Residencial
+2020-08-01,Pessoal,5500.00,saida,Salários
+2020-08-01,Utilidades,240.00,saida,Energia Elétrica
+2020-09-01,Receita,35000.00,entrada,Limpeza Residencial
+2020-09-01,Pessoal,5500.00,saida,Salários
+2020-09-01,Utilidades,220.00,saida,Energia Elétrica
+2020-10-01,Receita,38000.00,entrada,Limpeza Residencial
+2020-10-01,Pessoal,5500.00,saida,Salários
+2020-10-01,Utilidades,200.00,saida,Energia Elétrica
+2020-11-01,Receita,40000.00,entrada,Limpeza Residencial
+2020-11-01,Pessoal,5500.00,saida,Salários
+2020-11-01,Utilidades,180.00,saida,Energia Elétrica
+2020-12-01,Receita,42000.00,entrada,Limpeza Residencial
+2020-12-01,Pessoal,5500.00,saida,Salários
+2020-12-01,Utilidades,190.00,saida,Energia Elétrica
+

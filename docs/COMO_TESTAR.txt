@@ -1,0 +1,93 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    COMO TESTAR O SISTEMA - GUIA RÁPIDO                       ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+✅ TESTE AUTOMÁTICO (MAIS RÁPIDO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Execute no terminal:
+    python testar_sistema.py
+
+Resultado esperado:
+    ✅ Sistema testado com sucesso!
+    ✅ Arquivos gerados:
+       - teste_resultados.xlsx
+       - relatorio_analise.txt
+
+
+✅ TESTE MANUAL - EXECUTAR SISTEMA COMPLETO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Opção 1 - Script principal:
+    python sistema_analise_financeira.py
+
+Opção 2 - Exemplo de uso:
+    python exemplo_uso.py
+
+Resultado:
+    - resultados_analise_financeira.xlsx
+    - relatorio_analise.txt
+
+
+✅ TESTE INTERATIVO - DASHBOARD WEB
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Execute:
+    streamlit run dashboard_streamlit.py
+
+No navegador:
+    1. Faça upload da planilha Excel
+    2. (Opcional) Faça upload de base histórica CSV
+    3. Clique em "🔄 Processar Dados"
+    4. Explore as abas do dashboard
+
+
+📊 VERIFICAR RESULTADOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Abra o arquivo Excel gerado:
+   - teste_resultados.xlsx OU
+   - resultados_analise_financeira.xlsx
+
+2. Verifique as abas:
+   ✓ DRE_Mensal
+   ✓ DRE_Trimestral
+   ✓ DRE_Anual
+   ✓ KPIs
+   ✓ Flags_Coverage
+   ✓ Sources_Audit_Trail
+
+3. Leia o relatório:
+   - relatorio_analise.txt
+
+
+✅ RESULTADOS DO ÚLTIMO TESTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Dados extraídos: 600 registros
+✓ Período: 2020-01-01 até 2024-12-01
+✓ DRE Mensal: 60 meses x 15 linhas
+✓ DRE Trimestral: 20 trimestres x 15 linhas
+✓ DRE Anual: 5 anos x 15 linhas
+✓ KPIs: 60 períodos x 4 indicadores
+✓ Coverage: 100% (todas as categorias)
+
+
+🚀 PRÓXIMOS PASSOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Abra o Excel gerado e analise os resultados
+2. Verifique o relatório em texto
+3. Use o dashboard para visualização interativa
+4. Ajuste o mapeamento se necessário (mapeamento_dre.json)
+5. Adicione base histórica para melhorar fallback
+
+
+❓ PROBLEMAS?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+- Execute: python testar_sistema.py (diagnóstico completo)
+- Verifique: relatorio_analise.txt
+- Consulte: GUIA_TESTE.md (guia detalhado)
+- Veja: README.md (documentação completa)
+

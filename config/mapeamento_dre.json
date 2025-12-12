@@ -1,0 +1,165 @@
+{
+  "mapeamento_categorias": {
+    "Receita": {
+      "categoria_dre": "Receita Bruta",
+      "tipo": "receita",
+      "agrupamento": "Receitas"
+    },
+    "Pessoal": {
+      "categoria_dre": "Despesas Pessoal",
+      "tipo": "despesa",
+      "agrupamento": "Despesas Operacionais"
+    },
+    "Aluguel": {
+      "categoria_dre": "Despesas Operacionais",
+      "tipo": "despesa",
+      "agrupamento": "Despesas Operacionais"
+    },
+    "Utilidades": {
+      "categoria_dre": "Despesas Operacionais",
+      "tipo": "despesa",
+      "agrupamento": "Despesas Operacionais"
+    },
+    "Telecomunicações": {
+      "categoria_dre": "Despesas Operacionais",
+      "tipo": "despesa",
+      "agrupamento": "Despesas Operacionais"
+    },
+    "Marketing": {
+      "categoria_dre": "Despesas Marketing",
+      "tipo": "despesa",
+      "agrupamento": "Despesas Operacionais"
+    },
+    "Administrativo": {
+      "categoria_dre": "Despesas Administrativas",
+      "tipo": "despesa",
+      "agrupamento": "Despesas Operacionais"
+    },
+    "Manutenção": {
+      "categoria_dre": "Despesas Operacionais",
+      "tipo": "despesa",
+      "agrupamento": "Despesas Operacionais"
+    },
+    "Insumos": {
+      "categoria_dre": "COGS",
+      "tipo": "custo",
+      "agrupamento": "Custos"
+    },
+    "Outras Despesas": {
+      "categoria_dre": "Despesas Operacionais",
+      "tipo": "despesa",
+      "agrupamento": "Despesas Operacionais"
+    }
+  },
+  "estrutura_dre": [
+    {
+      "linha": "Receita Bruta",
+      "tipo": "receita",
+      "formula": "SUM(Receita)",
+      "ordem": 1
+    },
+    {
+      "linha": "Deduções (Impostos)",
+      "tipo": "deducao",
+      "formula": "0",
+      "ordem": 2
+    },
+    {
+      "linha": "Receita Líquida",
+      "tipo": "calculado",
+      "formula": "Receita Bruta - Deduções",
+      "ordem": 3
+    },
+    {
+      "linha": "COGS",
+      "tipo": "custo",
+      "formula": "SUM(Insumos)",
+      "ordem": 4
+    },
+    {
+      "linha": "Lucro Bruto",
+      "tipo": "calculado",
+      "formula": "Receita Líquida - COGS",
+      "ordem": 5
+    },
+    {
+      "linha": "Despesas Pessoal",
+      "tipo": "despesa",
+      "formula": "SUM(Pessoal)",
+      "ordem": 6
+    },
+    {
+      "linha": "Despesas Operacionais",
+      "tipo": "despesa",
+      "formula": "SUM(Aluguel, Utilidades, Telecomunicações, Manutenção, Outras Despesas)",
+      "ordem": 7
+    },
+    {
+      "linha": "Despesas Marketing",
+      "tipo": "despesa",
+      "formula": "SUM(Marketing)",
+      "ordem": 8
+    },
+    {
+      "linha": "Despesas Administrativas",
+      "tipo": "despesa",
+      "formula": "SUM(Administrativo)",
+      "ordem": 9
+    },
+    {
+      "linha": "Total Despesas Operacionais",
+      "tipo": "calculado",
+      "formula": "Despesas Pessoal + Despesas Operacionais + Despesas Marketing + Despesas Administrativas",
+      "ordem": 10
+    },
+    {
+      "linha": "EBITDA",
+      "tipo": "calculado",
+      "formula": "Lucro Bruto - Total Despesas Operacionais",
+      "ordem": 11
+    },
+    {
+      "linha": "D&A (Depreciação/Amortização)",
+      "tipo": "despesa",
+      "formula": "0",
+      "ordem": 12
+    },
+    {
+      "linha": "Resultado Operacional",
+      "tipo": "calculado",
+      "formula": "EBITDA - D&A",
+      "ordem": 13
+    },
+    {
+      "linha": "Impostos sobre Lucro",
+      "tipo": "despesa",
+      "formula": "0",
+      "ordem": 14
+    },
+    {
+      "linha": "Resultado Líquido",
+      "tipo": "calculado",
+      "formula": "Resultado Operacional - Impostos sobre Lucro",
+      "ordem": 15
+    }
+  ],
+  "kpis": {
+    "Margem Bruta": {
+      "formula": "(Lucro Bruto / Receita Líquida) * 100",
+      "tipo": "percentual"
+    },
+    "Margem EBITDA": {
+      "formula": "(EBITDA / Receita Líquida) * 100",
+      "tipo": "percentual"
+    },
+    "Margem Líquida": {
+      "formula": "(Resultado Líquido / Receita Líquida) * 100",
+      "tipo": "percentual"
+    },
+    "ROI": {
+      "formula": "(Resultado Líquido / Investimento Inicial) * 100",
+      "tipo": "percentual"
+    }
+  }
+}
+
