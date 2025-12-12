@@ -207,11 +207,68 @@ export async function POST(request: NextRequest) {
       }
     }
     
-    // Se nenhum Python funcionou, tentar chamar via HTTP (se houver API Python separada)
+    // Se nenhum Python funcionou, tentar chamar Vercel Serverless Function Python
     if (!stdout && lastError) {
-      console.log('[API] Python não disponível localmente, tentando API externa...')
+      console.log('[API] Python não disponível localmente, tentando Vercel Python Function...')
       
-      // Tentar chamar API Python separada se disponível
+      // No Vercel, tentar chamar a função Python serverless
+      if (process.env.VERCEL) {
+        try {
+          // Ler arquivo se for caminho local e converter para base64 para enviar
+          let excelBase64 = null
+          if (excelPath && fs.existsSync(excelPath)) {
+            const excelBuffer = fs.readFileSync(excelPath)
+            excelBase64 = excelBuffer.toString('base64')
+          }
+          
+          let historicalBase64 = null
+          if (historicalPath && fs.existsSync(historicalPath)) {
+            const histBuffer = fs.readFileSync(historicalPath)
+            historicalBase64 = histBuffer.toString('base64')
+          }
+          
+          let manualDataBase64 = null
+          if (manualDataPath && fs.existsSync(manualDataPath)) {
+            const manualBuffer = fs.readFileSync(manualDataPath)
+            manualDataBase64 = manualBuffer.toString('base64')
+          }
+          
+          // Construir URL da API Python (mesma base URL)
+          const baseUrl = process.env.VERCEL_URL 
+            ? `https://${process.env.VERCEL_URL}` 
+            : (typeof window !== 'undefined' ? window.location.origin : '')
+          
+          const pythonApiUrl = `${baseUrl}/api/process-python`
+          
+          console.log('[API] Chamando função Python:', pythonApiUrl)
+          
+          const response = await fetch(pythonApiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              excel_base64: excelBase64,
+              historical_base64: historicalBase64,
+              manual_data_base64: manualDataBase64,
+              file_type: fileType,
+            }),
+          })
+          
+          if (response.ok) {
+            const resultado = await response.json()
+            console.log('[API] Python Function respondeu com sucesso')
+            return NextResponse.json(resultado, {
+              headers: { 'Content-Type': 'application/json' },
+            })
+          } else {
+            const errorText = await response.text()
+            console.error('[API] Python Function erro:', errorText)
+          }
+        } catch (apiError: any) {
+          console.error('[API] Erro ao chamar Python Function:', apiError.message)
+        }
+      }
+      
+      // Tentar API externa se configurada
       const pythonApiUrl = process.env.PYTHON_API_URL
       if (pythonApiUrl) {
         try {
@@ -240,9 +297,10 @@ export async function POST(request: NextRequest) {
       // Se não funcionou, retornar erro
       return NextResponse.json(
         {
-          error: 'Python não está disponível no ambiente Vercel.',
-          details: 'O Vercel Node.js runtime não inclui Python. Para usar este recurso, é necessário: 1) Criar uma Vercel Serverless Function Python separada, 2) Usar uma API externa que processe os dados, ou 3) Portar a lógica para JavaScript/TypeScript.',
-          solution: 'Considere usar um serviço separado para processamento Python ou migrar a lógica para Node.js.',
+          error: 'Python não está disponível no ambiente.',
+          details: process.env.VERCEL 
+            ? 'Tentamos usar Vercel Serverless Function Python, mas não está configurada. Consulte docs/VERCEL_PYTHON_LIMITACAO.md para soluções.'
+            : 'Python não encontrado localmente. Instale Python e tente novamente.',
           lastError: lastError?.message,
         },
         { status: 503, headers: { 'Content-Type': 'application/json' } }
