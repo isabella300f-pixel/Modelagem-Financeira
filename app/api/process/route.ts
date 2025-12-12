@@ -155,23 +155,99 @@ export async function POST(request: NextRequest) {
     }
 
     // Executar script Python
-    // No Vercel, usar python3, localmente pode ser python
-    const pythonCmd = process.env.VERCEL ? 'python3' : 'python'
+    // No Vercel, tentar python primeiro (pode estar disponível), depois python3
+    // IMPORTANTE: O Vercel Node.js runtime NÃO tem Python instalado por padrão
+    // Para usar Python no Vercel, você precisa:
+    // 1. Criar uma Vercel Serverless Function Python separada, OU
+    // 2. Usar uma API externa, OU  
+    // 3. Portar a lógica para JavaScript/TypeScript
+    const pythonCommands = process.env.VERCEL ? ['python', 'python3'] : ['python', 'python3']
     const scriptPath = path.join(process.cwd(), 'scripts', 'processar_api.py')
     
     // Garantir que o caminho está correto
-    const fullPythonCmd = `${pythonCmd} "${scriptPath}" "${excelPath || 'None'}" ${historicalPath ? `"${historicalPath}"` : 'None'} "${fileType}" "${manualDataPath || 'None'}"`
-
-    console.log('[API] Executando Python:', fullPythonCmd.substring(0, 100) + '...')
-
-    const { stdout, stderr } = await execAsync(fullPythonCmd, {
-      cwd: process.cwd(),
-      maxBuffer: 10 * 1024 * 1024, // 10MB
-      env: {
-        ...process.env,
-        PYTHONUNBUFFERED: '1',
-      },
-    })
+    const excelPathArg = excelPath || 'None'
+    const historicalPathArg = historicalPath ? `"${historicalPath}"` : 'None'
+    const manualDataPathArg = manualDataPath || 'None'
+    
+    let stdout = ''
+    let stderr = ''
+    let lastError: Error | null = null
+    
+    // Tentar cada comando Python disponível
+    for (const pythonCmd of pythonCommands) {
+      const fullPythonCmd = `${pythonCmd} "${scriptPath}" "${excelPathArg}" ${historicalPathArg} "${fileType}" "${manualDataPathArg}"`
+      
+      console.log(`[API] Tentando executar Python com: ${pythonCmd}`)
+      
+      try {
+        const result = await execAsync(fullPythonCmd, {
+          cwd: process.cwd(),
+          maxBuffer: 10 * 1024 * 1024, // 10MB
+          env: {
+            ...process.env,
+            PYTHONUNBUFFERED: '1',
+            PATH: process.env.PATH || '/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin',
+          },
+        })
+        stdout = result.stdout
+        stderr = result.stderr
+        console.log(`[API] Python executado com sucesso usando: ${pythonCmd}`)
+        break // Sucesso, sair do loop
+      } catch (error: any) {
+        lastError = error
+        console.log(`[API] ${pythonCmd} falhou: ${error.message?.substring(0, 100)}`)
+        
+        // Se é "command not found", tentar próximo
+        if (error.message?.includes('command not found')) {
+          continue
+        }
+        
+        // Outros erros, relançar
+        throw error
+      }
+    }
+    
+    // Se nenhum Python funcionou, tentar chamar via HTTP (se houver API Python separada)
+    if (!stdout && lastError) {
+      console.log('[API] Python não disponível localmente, tentando API externa...')
+      
+      // Tentar chamar API Python separada se disponível
+      const pythonApiUrl = process.env.PYTHON_API_URL
+      if (pythonApiUrl) {
+        try {
+          const response = await fetch(pythonApiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              file_path: excelPath,
+              historical_path: historicalPath,
+              file_type: fileType,
+              manual_data_path: manualDataPath,
+            }),
+          })
+          
+          if (response.ok) {
+            const resultado = await response.json()
+            return NextResponse.json(resultado, {
+              headers: { 'Content-Type': 'application/json' },
+            })
+          }
+        } catch (apiError) {
+          console.error('[API] Erro ao chamar API Python externa:', apiError)
+        }
+      }
+      
+      // Se não funcionou, retornar erro
+      return NextResponse.json(
+        {
+          error: 'Python não está disponível no ambiente Vercel.',
+          details: 'O Vercel Node.js runtime não inclui Python. Para usar este recurso, é necessário: 1) Criar uma Vercel Serverless Function Python separada, 2) Usar uma API externa que processe os dados, ou 3) Portar a lógica para JavaScript/TypeScript.',
+          solution: 'Considere usar um serviço separado para processamento Python ou migrar a lógica para Node.js.',
+          lastError: lastError?.message,
+        },
+        { status: 503, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
 
     if (stderr && !stderr.includes('Warning') && !stderr.includes('Deprecation')) {
       console.error('[API] Python stderr:', stderr.substring(0, 500))
