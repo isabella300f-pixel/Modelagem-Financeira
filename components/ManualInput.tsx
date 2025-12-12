@@ -61,9 +61,13 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
   const addDespesa = () => {
     setFormData({
       ...formData,
-      despesas: [...formData.despesas, { mes: '2024-01', categoria: 'Pessoal', valor: '' }]
+      despesas: [
+        ...formData.despesas,
+        { mes: '2024-01', categoria: 'Pessoal', valor: '', descricao: '' }
+      ]
     })
   }
+  
 
   const updateReceita = (index: number, field: string, value: any) => {
     const newReceitas = [...formData.receitas]
@@ -116,7 +120,7 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
         .map(d => ({
           data: `${d.mes}-01`,
           categoria: d.categoria,
-          subcategoria: d.categoria,
+          subcategoria: d.descricao ?? d.categoria,
           valor: parseFloat(d.valor.toString()) || 0,
           tipo: 'saida',
           fonte: 'Manual'
