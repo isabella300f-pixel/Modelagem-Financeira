@@ -116,7 +116,7 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
         .map(d => ({
           data: `${d.mes}-01`,
           categoria: d.categoria,
-          subcategoria: d.descricao || d.categoria,
+          subcategoria: d.categoria,
           valor: parseFloat(d.valor.toString()) || 0,
           tipo: 'saida',
           fonte: 'Manual'
