@@ -64,6 +64,8 @@ data/resultados/*.xlsx
 data/resultados/*.txt
 data/resultados/*.csv
 !data/exemplos/
+# Permitir planilha base específica para o sistema
+!data/resultados/MODELAGEM_FINANCEIRA - LIMPEZACA HOME OFFICE V01.1 - Lages SC - Franqueado (1).xlsx
 
 # Scripts temporários e de teste
 organizar_pasta.ps1
