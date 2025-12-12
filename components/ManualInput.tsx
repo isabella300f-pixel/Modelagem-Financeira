@@ -26,6 +26,23 @@ const CIDADE_POR_ESTADO: Record<string, string[]> = {
   // Adicionar mais conforme necessário
 }
 
+type Receita = {
+  mes: string
+  valor: string
+}
+
+type Despesa = {
+  mes: string
+  categoria: string
+  valor: string
+  descricao?: string
+}
+
+type FormDataState = {
+  receitas: Receita[]
+  despesas: Despesa[]
+}
+
 export default function ManualInput({ onProcess, loading }: ManualInputProps) {
   const [infoBasica, setInfoBasica] = useState({
     nome_cliente: '',
@@ -38,9 +55,9 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
     capacidade: '',
   })
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataState>({
     receitas: [{ mes: '2024-01', valor: '' }],
-    despesas: [{ mes: '2024-01', categoria: 'Pessoal', valor: '' }],
+    despesas: [{ mes: '2024-01', categoria: 'Pessoal', valor: '', descricao: '' }],
   })
 
   const updateInfoBasica = (field: string, value: string) => {
@@ -67,15 +84,14 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
       ]
     })
   }
-  
 
-  const updateReceita = (index: number, field: string, value: any) => {
+  const updateReceita = (index: number, field: keyof Receita, value: any) => {
     const newReceitas = [...formData.receitas]
     newReceitas[index] = { ...newReceitas[index], [field]: value }
     setFormData({ ...formData, receitas: newReceitas })
   }
 
-  const updateDespesa = (index: number, field: string, value: any) => {
+  const updateDespesa = (index: number, field: keyof Despesa, value: any) => {
     const newDespesas = [...formData.despesas]
     newDespesas[index] = { ...newDespesas[index], [field]: value }
     setFormData({ ...formData, despesas: newDespesas })
@@ -101,7 +117,7 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     // Converter para formato esperado pela API
     const dados = {
       info_basica: infoBasica, // Enviar informações básicas
@@ -142,7 +158,7 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
     'Outras Despesas'
   ]
 
-  const cidadesDisponiveis = infoBasica.estado 
+  const cidadesDisponiveis = infoBasica.estado
     ? (CIDADE_POR_ESTADO[infoBasica.estado] || [])
     : []
 
@@ -284,7 +300,7 @@ export default function ManualInput({ onProcess, loading }: ManualInputProps) {
               />
             </div>
           </div>
-          
+
           <p className="mt-3 text-sm text-gray-600">
             💡 <strong>Dica:</strong> Campos não preenchidos serão buscados automaticamente da planilha base.
           </p>
