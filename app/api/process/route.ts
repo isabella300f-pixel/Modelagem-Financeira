@@ -3,6 +3,7 @@ import { exec } from 'child_process'
 import { promisify } from 'util'
 import * as fs from 'fs'
 import * as path from 'path'
+import * as os from 'os'
 import { writeFile, unlink } from 'fs/promises'
 
 const execAsync = promisify(exec)
@@ -58,10 +59,19 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Criar diretório temporário
-    const tempDir = path.join(process.cwd(), 'tmp')
-    if (!fs.existsSync(tempDir)) {
-      fs.mkdirSync(tempDir, { recursive: true })
+    // Usar diretório temporário do sistema
+    // No Vercel, /tmp é o único diretório writable e já existe
+    const tempDir = process.env.VERCEL ? '/tmp' : path.join(process.cwd(), 'tmp')
+    if (!process.env.VERCEL && !fs.existsSync(tempDir)) {
+      try {
+        fs.mkdirSync(tempDir, { recursive: true })
+      } catch (err: any) {
+        console.error(`[API] Erro ao criar tempDir ${tempDir}:`, err)
+        // Se falhar, usar o diretório temporário do sistema
+        const fallbackTemp = os.tmpdir()
+        console.log(`[API] Usando diretório temporário alternativo: ${fallbackTemp}`)
+        throw new Error(`Não foi possível criar diretório temporário: ${err.message}`)
+      }
     }
 
     let excelPath: string | null = null
@@ -198,11 +208,18 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Limpar arquivos temporários
+    // Limpar arquivos temporários (apenas os que foram criados, não os originais)
     try {
-      if (excelPath) await unlink(excelPath)
-      if (historicalPath) await unlink(historicalPath)
-      if (manualDataPath) await unlink(manualDataPath)
+      // Se excelPath está em tempDir, foi criado temporariamente
+      if (excelPath && excelPath.startsWith(tempDir)) {
+        await unlink(excelPath).catch(() => {})
+      }
+      if (historicalPath && historicalPath.startsWith(tempDir)) {
+        await unlink(historicalPath).catch(() => {})
+      }
+      if (manualDataPath && manualDataPath.startsWith(tempDir)) {
+        await unlink(manualDataPath).catch(() => {})
+      }
     } catch (e) {
       console.warn('Erro ao limpar arquivos temporários:', e)
     }
