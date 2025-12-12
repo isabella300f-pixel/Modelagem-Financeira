@@ -3,7 +3,7 @@
   "framework": "nextjs",
   "functions": {
     "api/**/*.py": {
-      "runtime": "python3.9"
+      "runtime": "@vercel/python"
     },
     "app/api/**/*.ts": {
       "runtime": "nodejs18.x",
