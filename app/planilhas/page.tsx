@@ -43,13 +43,8 @@ export default function PlanilhasPage() {
         }
 
         // Verificar se há pelo menos um arquivo ou dados manuais
-        let hasData = false
-        for (const entry of formData.entries()) {
-          hasData = true
-          break
-        }
-        
-        if (!hasData && !manualData) {
+        const hasFiles = excelFile !== null || historicalFile !== null
+        if (!hasFiles && !manualData) {
           throw new Error('Nenhum dado fornecido')
         }
 
