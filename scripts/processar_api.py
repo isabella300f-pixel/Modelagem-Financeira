@@ -30,10 +30,14 @@ def main():
         # Carregar dados do Excel se fornecido
         df_excel = None
         sistema = None
-        if file_path and file_path.endswith('.xlsx'):
-            sistema = SistemaAnaliseFinanceira(file_path, historical_path)
-            sistema.carregar_dados()
-            df_excel = sistema.dados_atuais.copy() if sistema.dados_atuais is not None and not sistema.dados_atuais.empty else None
+        if file_path and file_path != 'None' and file_path.endswith('.xlsx'):
+            # Verificar se o caminho existe (pode ser relativo ou absoluto)
+            if os.path.exists(file_path):
+                sistema = SistemaAnaliseFinanceira(file_path, historical_path)
+                sistema.carregar_dados()
+                df_excel = sistema.dados_atuais.copy() if sistema.dados_atuais is not None and not sistema.dados_atuais.empty else None
+            else:
+                print(f"Arquivo não encontrado: {file_path}", file=sys.stderr)
         
         # Carregar dados manuais se fornecido
         df_manual = None

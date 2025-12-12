@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import FileUpload from '@/components/FileUpload'
 import ManualInput from '@/components/ManualInput'
 import Dashboard from '@/components/Dashboard'
@@ -11,6 +11,59 @@ export default function PlanilhasPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [inputMode, setInputMode] = useState<'file' | 'manual'>('file')
+  const [autoLoaded, setAutoLoaded] = useState(false)
+
+  const loadBaseFile = async () => {
+    if (autoLoaded) return // Evitar múltiplas chamadas
+    
+    setAutoLoaded(true)
+    setLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch('/api/process', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ useBaseFile: true }),
+      })
+
+      if (!response.ok) {
+        let errorMessage = 'Erro ao carregar planilha base'
+        try {
+          const errorData = await response.json()
+          errorMessage = errorData.error || errorMessage
+        } catch (e) {
+          errorMessage = `Erro HTTP ${response.status}: ${response.statusText}`
+        }
+        throw new Error(errorMessage)
+      }
+
+      const contentType = response.headers.get('content-type')
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text()
+        console.error('Resposta não é JSON:', text.substring(0, 200))
+        throw new Error('Resposta inválida do servidor')
+      }
+
+      const result = await response.json()
+      setData(result)
+    } catch (err: any) {
+      setError(err.message || 'Erro desconhecido ao carregar planilha base')
+      console.error('Erro:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Carregar automaticamente a planilha base ao montar o componente
+  useEffect(() => {
+    if (!autoLoaded && !data && !loading) {
+      loadBaseFile()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Executar apenas uma vez ao montar
 
   const handleProcess = async (excelFile?: File, historicalFile?: File, manualData?: any) => {
     setLoading(true)
@@ -94,7 +147,7 @@ export default function PlanilhasPage() {
         </div>
 
         {/* Histórico de Envios */}
-        {!data && (
+        {!data && !loading && (
           <div className="card mb-6">
             <h2 className="text-xl font-bold text-white mb-4">Histórico de Envios</h2>
             <div className="space-y-3">
@@ -121,7 +174,7 @@ export default function PlanilhasPage() {
         )}
 
         {/* Mode Selector */}
-        {!data && (
+        {!data && !loading && (
           <div className="max-w-4xl mx-auto mb-6">
             <div className="card">
               <h3 className="text-lg font-semibold mb-4 text-white">Escolha o método de entrada:</h3>

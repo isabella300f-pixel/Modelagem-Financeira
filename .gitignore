@@ -94,6 +94,8 @@ coverage/
 # Pastas legadas/duplicadas (a estrutura principal está na raiz)
 src/web/
 api/
+# Mas manter app/api/ que é Next.js App Router
+!app/api/
 
 # Arquivos de backup
 *.backup
